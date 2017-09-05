@@ -5,6 +5,8 @@
  */
 package javachatapplication.gui;
 
+import javachatapplication.networking.MessageListener;
+import javachatapplication.networking.MessageTransmitter;
 import javachatapplication.networking.WritableGUI;
 
 
@@ -54,6 +56,11 @@ public class MainScreen extends javax.swing.JFrame implements WritableGUI {
         jScrollPane1.setViewportView(chat);
 
         sendButton.setText("Send");
+        sendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendButtonActionPerformed(evt);
+            }
+        });
 
         receivePort.setText("8877");
 
@@ -113,7 +120,16 @@ public class MainScreen extends javax.swing.JFrame implements WritableGUI {
 
     private void listenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listenButtonActionPerformed
         // TODO add your handling code here:
+        MessageListener listener = new MessageListener(this,Integer.parseInt(receivePort.getText()));
+         listener.start();
     }//GEN-LAST:event_listenButtonActionPerformed
+
+    private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
+            // TODO add your handling code here:
+            MessageTransmitter transmitter = new MessageTransmitter(message.getText(),ipTextField.getText(),Integer.parseInt(targetPort.getText()));
+            transmitter.start();
+            
+    }//GEN-LAST:event_sendButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +179,6 @@ public class MainScreen extends javax.swing.JFrame implements WritableGUI {
 
     @Override
     public void write(String s) {
-     chat.append(s+ System.lineSeprator());    
+     chat.append(s+ System.lineSeparator());    
     }
 }

@@ -5,6 +5,8 @@
  */
 package javachatapplication;
 
+import javachatapplication.gui.MainScreen;
+
 /**
  *
  * @author rishabh-malhotra
@@ -16,6 +18,10 @@ public class JavaChatApplication {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        MainScreen screen=new MainScreen();
+        
+        screen.show();
+        
     }
     
 }
